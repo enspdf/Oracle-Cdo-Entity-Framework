@@ -1,0 +1,17 @@
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\bin\Debug\Oracle_Project.exe.config
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\bin\Debug\Oracle_Project.exe
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\bin\Debug\Oracle_Project.pdb
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\bin\Debug\EntityFramework.dll
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\bin\Debug\EntityFramework.xml
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\obj\Debug\Oracle_Project.csprojResolveAssemblyReference.cache
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\obj\Debug\Oracle_Project.Form1.resources
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\obj\Debug\Oracle_Project.Properties.Resources.resources
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\obj\Debug\Oracle_Project.csproj.GenerateResource.Cache
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\obj\Debug\Oracle_Project.exe
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\obj\Debug\Oracle_Project.pdb
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\obj\Debug\Oracle_Project.Form2.resources
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\obj\Debug\Oracle_Project.Menu.resources
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\obj\Debug\Oracle_Project.Acerca.resources
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\obj\Debug\Oracle_Project.Form3.resources
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\obj\Debug\Oracle_Project.Form4.resources
+\\mac\home\documents\visual studio 2013\Projects\Oracle_Project\Oracle_Project\obj\Debug\Oracle_Project.Form5.resources

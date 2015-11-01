@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Modelo" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TBL_LIBRO">
+    <Key>
+      <PropertyRef Name="ID_LIBRO" />
+    </Key>
+    <Property Name="ID_LIBRO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="NOMBRE_LIBRO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="NOMBRE_AUTOR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TBL_LOG" Relationship="Self.LOG_LIBRO_FK" FromRole="TBL_LIBRO" ToRole="TBL_LOG" />
+    <NavigationProperty Name="TBL_USUARIO" Relationship="Self.USUARIO_LIBRO_FK" FromRole="TBL_LIBRO" ToRole="TBL_USUARIO" />
+  </EntityType>
+  <EntityType Name="TBL_LOG">
+    <Key>
+      <PropertyRef Name="ID_LOG" />
+    </Key>
+    <Property Name="ID_LOG" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="FECHA_REGISTRO" Type="DateTime" />
+    <Property Name="ID_LIBRO" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="ID_USUARIO" Type="Decimal" Precision="38" Scale="0" />
+    <NavigationProperty Name="TBL_LIBRO" Relationship="Self.LOG_LIBRO_FK" FromRole="TBL_LOG" ToRole="TBL_LIBRO" />
+    <NavigationProperty Name="TBL_USUARIO" Relationship="Self.LOG_USUARIO_FK" FromRole="TBL_LOG" ToRole="TBL_USUARIO" />
+  </EntityType>
+  <EntityType Name="TBL_USUARIO">
+    <Key>
+      <PropertyRef Name="ID_USUARIO" />
+    </Key>
+    <Property Name="ID_USUARIO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="CEDULA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="APELLIDO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DIRECCION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CELULAR" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="ID_LIBRO" Type="Decimal" Precision="38" Scale="0" />
+    <NavigationProperty Name="TBL_LIBRO" Relationship="Self.USUARIO_LIBRO_FK" FromRole="TBL_USUARIO" ToRole="TBL_LIBRO" />
+    <NavigationProperty Name="TBL_LOG" Relationship="Self.LOG_USUARIO_FK" FromRole="TBL_USUARIO" ToRole="TBL_LOG" />
+  </EntityType>
+  <Association Name="LOG_LIBRO_FK">
+    <End Role="TBL_LIBRO" Type="Self.TBL_LIBRO" Multiplicity="0..1" />
+    <End Role="TBL_LOG" Type="Self.TBL_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_LIBRO">
+        <PropertyRef Name="ID_LIBRO" />
+      </Principal>
+      <Dependent Role="TBL_LOG">
+        <PropertyRef Name="ID_LIBRO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="USUARIO_LIBRO_FK">
+    <End Role="TBL_LIBRO" Type="Self.TBL_LIBRO" Multiplicity="0..1" />
+    <End Role="TBL_USUARIO" Type="Self.TBL_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_LIBRO">
+        <PropertyRef Name="ID_LIBRO" />
+      </Principal>
+      <Dependent Role="TBL_USUARIO">
+        <PropertyRef Name="ID_LIBRO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LOG_USUARIO_FK">
+    <End Role="TBL_USUARIO" Type="Self.TBL_USUARIO" Multiplicity="0..1" />
+    <End Role="TBL_LOG" Type="Self.TBL_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_USUARIO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Principal>
+      <Dependent Role="TBL_LOG">
+        <PropertyRef Name="ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EntidadesLibreria" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TBL_LIBRO" EntityType="Self.TBL_LIBRO" />
+    <EntitySet Name="TBL_LOG" EntityType="Self.TBL_LOG" />
+    <EntitySet Name="TBL_USUARIO" EntityType="Self.TBL_USUARIO" />
+    <AssociationSet Name="LOG_LIBRO_FK" Association="Self.LOG_LIBRO_FK">
+      <End Role="TBL_LIBRO" EntitySet="TBL_LIBRO" />
+      <End Role="TBL_LOG" EntitySet="TBL_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="USUARIO_LIBRO_FK" Association="Self.USUARIO_LIBRO_FK">
+      <End Role="TBL_LIBRO" EntitySet="TBL_LIBRO" />
+      <End Role="TBL_USUARIO" EntitySet="TBL_USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="LOG_USUARIO_FK" Association="Self.LOG_USUARIO_FK">
+      <End Role="TBL_USUARIO" EntitySet="TBL_USUARIO" />
+      <End Role="TBL_LOG" EntitySet="TBL_LOG" />
+    </AssociationSet>
+    <FunctionImport Name="INSERTAR_LIBRO">
+      <Parameter Name="L_NOMBRE_LIBRO" Mode="In" Type="String" />
+      <Parameter Name="L_NOMBRE_AUTOR" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="INSERTAR_USUARIO">
+      <Parameter Name="U_CEDULA" Mode="In" Type="String" />
+      <Parameter Name="U_NOMBRE" Mode="In" Type="String" />
+      <Parameter Name="U_APELLIDO" Mode="In" Type="String" />
+      <Parameter Name="U_DIRECCION" Mode="In" Type="String" />
+      <Parameter Name="U_CELULAR" Mode="In" Type="Decimal" />
+      <Parameter Name="U_L_LIBRO" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="FUN_OBTENER_USUARIOS" />
+  </EntityContainer>
+</Schema>

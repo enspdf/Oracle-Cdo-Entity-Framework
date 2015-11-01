@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Modelo.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_LIBRO">
+          <Key>
+            <PropertyRef Name="ID_LIBRO" />
+          </Key>
+          <Property Name="ID_LIBRO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRE_LIBRO" Type="varchar2" MaxLength="255" />
+          <Property Name="NOMBRE_AUTOR" Type="varchar2" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TBL_LOG">
+          <Key>
+            <PropertyRef Name="ID_LOG" />
+          </Key>
+          <Property Name="ID_LOG" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA_REGISTRO" Type="date" />
+          <Property Name="ID_LIBRO" Type="number" Precision="38" Scale="0" />
+          <Property Name="ID_USUARIO" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="TBL_USUARIO">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CEDULA" Type="varchar2" MaxLength="20" />
+          <Property Name="NOMBRE" Type="varchar2" MaxLength="50" />
+          <Property Name="APELLIDO" Type="varchar2" MaxLength="50" />
+          <Property Name="DIRECCION" Type="varchar2" MaxLength="255" />
+          <Property Name="CELULAR" Type="number" Precision="38" Scale="0" />
+          <Property Name="ID_LIBRO" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <Association Name="LOG_LIBRO_FK">
+          <End Role="TBL_LIBRO" Type="Self.TBL_LIBRO" Multiplicity="0..1" />
+          <End Role="TBL_LOG" Type="Self.TBL_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_LIBRO">
+              <PropertyRef Name="ID_LIBRO" />
+            </Principal>
+            <Dependent Role="TBL_LOG">
+              <PropertyRef Name="ID_LIBRO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LOG_USUARIO_FK">
+          <End Role="TBL_USUARIO" Type="Self.TBL_USUARIO" Multiplicity="0..1" />
+          <End Role="TBL_LOG" Type="Self.TBL_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_USUARIO">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="TBL_LOG">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USUARIO_LIBRO_FK">
+          <End Role="TBL_LIBRO" Type="Self.TBL_LIBRO" Multiplicity="0..1" />
+          <End Role="TBL_USUARIO" Type="Self.TBL_USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_LIBRO">
+              <PropertyRef Name="ID_LIBRO" />
+            </Principal>
+            <Dependent Role="TBL_USUARIO">
+              <PropertyRef Name="ID_LIBRO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="FUN_OBTENER_USUARIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SHACKOX" />
+        <Function Name="INSERTAR_LIBRO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SHACKOX">
+          <Parameter Name="L_NOMBRE_LIBRO" Type="varchar2" Mode="In" />
+          <Parameter Name="L_NOMBRE_AUTOR" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="INSERTAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SHACKOX">
+          <Parameter Name="U_CEDULA" Type="varchar2" Mode="In" />
+          <Parameter Name="U_NOMBRE" Type="varchar2" Mode="In" />
+          <Parameter Name="U_APELLIDO" Type="varchar2" Mode="In" />
+          <Parameter Name="U_DIRECCION" Type="varchar2" Mode="In" />
+          <Parameter Name="U_CELULAR" Type="number" Mode="In" />
+          <Parameter Name="U_L_LIBRO" Type="number" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModeloStoreContainer">
+          <EntitySet Name="TBL_LIBRO" EntityType="Self.TBL_LIBRO" Schema="SHACKOX" store:Type="Tables" />
+          <EntitySet Name="TBL_LOG" EntityType="Self.TBL_LOG" Schema="SHACKOX" store:Type="Tables" />
+          <EntitySet Name="TBL_USUARIO" EntityType="Self.TBL_USUARIO" Schema="SHACKOX" store:Type="Tables" />
+          <AssociationSet Name="LOG_LIBRO_FK" Association="Self.LOG_LIBRO_FK">
+            <End Role="TBL_LIBRO" EntitySet="TBL_LIBRO" />
+            <End Role="TBL_LOG" EntitySet="TBL_LOG" />
+          </AssociationSet>
+          <AssociationSet Name="LOG_USUARIO_FK" Association="Self.LOG_USUARIO_FK">
+            <End Role="TBL_USUARIO" EntitySet="TBL_USUARIO" />
+            <End Role="TBL_LOG" EntitySet="TBL_LOG" />
+          </AssociationSet>
+          <AssociationSet Name="USUARIO_LIBRO_FK" Association="Self.USUARIO_LIBRO_FK">
+            <End Role="TBL_LIBRO" EntitySet="TBL_LIBRO" />
+            <End Role="TBL_USUARIO" EntitySet="TBL_USUARIO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Modelo" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_LIBRO">
+          <Key>
+            <PropertyRef Name="ID_LIBRO" />
+          </Key>
+          <Property Name="ID_LIBRO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NOMBRE_LIBRO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE_AUTOR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_LOG" Relationship="Self.LOG_LIBRO_FK" FromRole="TBL_LIBRO" ToRole="TBL_LOG" />
+          <NavigationProperty Name="TBL_USUARIO" Relationship="Self.USUARIO_LIBRO_FK" FromRole="TBL_LIBRO" ToRole="TBL_USUARIO" />
+        </EntityType>
+        <EntityType Name="TBL_LOG">
+          <Key>
+            <PropertyRef Name="ID_LOG" />
+          </Key>
+          <Property Name="ID_LOG" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA_REGISTRO" Type="DateTime" />
+          <Property Name="ID_LIBRO" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ID_USUARIO" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="TBL_LIBRO" Relationship="Self.LOG_LIBRO_FK" FromRole="TBL_LOG" ToRole="TBL_LIBRO" />
+          <NavigationProperty Name="TBL_USUARIO" Relationship="Self.LOG_USUARIO_FK" FromRole="TBL_LOG" ToRole="TBL_USUARIO" />
+        </EntityType>
+        <EntityType Name="TBL_USUARIO">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CEDULA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIRECCION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CELULAR" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ID_LIBRO" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="TBL_LIBRO" Relationship="Self.USUARIO_LIBRO_FK" FromRole="TBL_USUARIO" ToRole="TBL_LIBRO" />
+          <NavigationProperty Name="TBL_LOG" Relationship="Self.LOG_USUARIO_FK" FromRole="TBL_USUARIO" ToRole="TBL_LOG" />
+        </EntityType>
+        <Association Name="LOG_LIBRO_FK">
+          <End Role="TBL_LIBRO" Type="Self.TBL_LIBRO" Multiplicity="0..1" />
+          <End Role="TBL_LOG" Type="Self.TBL_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_LIBRO">
+              <PropertyRef Name="ID_LIBRO" />
+            </Principal>
+            <Dependent Role="TBL_LOG">
+              <PropertyRef Name="ID_LIBRO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USUARIO_LIBRO_FK">
+          <End Role="TBL_LIBRO" Type="Self.TBL_LIBRO" Multiplicity="0..1" />
+          <End Role="TBL_USUARIO" Type="Self.TBL_USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_LIBRO">
+              <PropertyRef Name="ID_LIBRO" />
+            </Principal>
+            <Dependent Role="TBL_USUARIO">
+              <PropertyRef Name="ID_LIBRO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LOG_USUARIO_FK">
+          <End Role="TBL_USUARIO" Type="Self.TBL_USUARIO" Multiplicity="0..1" />
+          <End Role="TBL_LOG" Type="Self.TBL_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_USUARIO">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="TBL_LOG">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EntidadesLibreria" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_LIBRO" EntityType="Self.TBL_LIBRO" />
+          <EntitySet Name="TBL_LOG" EntityType="Self.TBL_LOG" />
+          <EntitySet Name="TBL_USUARIO" EntityType="Self.TBL_USUARIO" />
+          <AssociationSet Name="LOG_LIBRO_FK" Association="Self.LOG_LIBRO_FK">
+            <End Role="TBL_LIBRO" EntitySet="TBL_LIBRO" />
+            <End Role="TBL_LOG" EntitySet="TBL_LOG" />
+          </AssociationSet>
+          <AssociationSet Name="USUARIO_LIBRO_FK" Association="Self.USUARIO_LIBRO_FK">
+            <End Role="TBL_LIBRO" EntitySet="TBL_LIBRO" />
+            <End Role="TBL_USUARIO" EntitySet="TBL_USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="LOG_USUARIO_FK" Association="Self.LOG_USUARIO_FK">
+            <End Role="TBL_USUARIO" EntitySet="TBL_USUARIO" />
+            <End Role="TBL_LOG" EntitySet="TBL_LOG" />
+          </AssociationSet>
+          <FunctionImport Name="INSERTAR_LIBRO">
+            <Parameter Name="L_NOMBRE_LIBRO" Mode="In" Type="String" />
+            <Parameter Name="L_NOMBRE_AUTOR" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="INSERTAR_USUARIO">
+            <Parameter Name="U_CEDULA" Mode="In" Type="String" />
+            <Parameter Name="U_NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="U_APELLIDO" Mode="In" Type="String" />
+            <Parameter Name="U_DIRECCION" Mode="In" Type="String" />
+            <Parameter Name="U_CELULAR" Mode="In" Type="Decimal" />
+            <Parameter Name="U_L_LIBRO" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="FUN_OBTENER_USUARIOS" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModeloStoreContainer" CdmEntityContainer="EntidadesLibreria">
+          <EntitySetMapping Name="TBL_LIBRO">
+            <EntityTypeMapping TypeName="Modelo.TBL_LIBRO">
+              <MappingFragment StoreEntitySet="TBL_LIBRO">
+                <ScalarProperty Name="ID_LIBRO" ColumnName="ID_LIBRO" />
+                <ScalarProperty Name="NOMBRE_LIBRO" ColumnName="NOMBRE_LIBRO" />
+                <ScalarProperty Name="NOMBRE_AUTOR" ColumnName="NOMBRE_AUTOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_LOG">
+            <EntityTypeMapping TypeName="Modelo.TBL_LOG">
+              <MappingFragment StoreEntitySet="TBL_LOG">
+                <ScalarProperty Name="ID_LOG" ColumnName="ID_LOG" />
+                <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
+                <ScalarProperty Name="ID_LIBRO" ColumnName="ID_LIBRO" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_USUARIO">
+            <EntityTypeMapping TypeName="Modelo.TBL_USUARIO">
+              <MappingFragment StoreEntitySet="TBL_USUARIO">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="APELLIDO" ColumnName="APELLIDO" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="CELULAR" ColumnName="CELULAR" />
+                <ScalarProperty Name="ID_LIBRO" ColumnName="ID_LIBRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="INSERTAR_LIBRO" FunctionName="Modelo.Store.INSERTAR_LIBRO" />
+          <FunctionImportMapping FunctionImportName="INSERTAR_USUARIO" FunctionName="Modelo.Store.INSERTAR_USUARIO" />
+          <FunctionImportMapping FunctionImportName="FUN_OBTENER_USUARIOS" FunctionName="Modelo.Store.FUN_OBTENER_USUARIOS" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

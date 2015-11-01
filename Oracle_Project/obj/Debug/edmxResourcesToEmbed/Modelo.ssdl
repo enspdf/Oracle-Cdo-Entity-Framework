@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Modelo.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TBL_LIBRO">
+    <Key>
+      <PropertyRef Name="ID_LIBRO" />
+    </Key>
+    <Property Name="ID_LIBRO" Type="number" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="NOMBRE_LIBRO" Type="varchar2" MaxLength="255" />
+    <Property Name="NOMBRE_AUTOR" Type="varchar2" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TBL_LOG">
+    <Key>
+      <PropertyRef Name="ID_LOG" />
+    </Key>
+    <Property Name="ID_LOG" Type="number" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="FECHA_REGISTRO" Type="date" />
+    <Property Name="ID_LIBRO" Type="number" Precision="38" Scale="0" />
+    <Property Name="ID_USUARIO" Type="number" Precision="38" Scale="0" />
+  </EntityType>
+  <EntityType Name="TBL_USUARIO">
+    <Key>
+      <PropertyRef Name="ID_USUARIO" />
+    </Key>
+    <Property Name="ID_USUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="CEDULA" Type="varchar2" MaxLength="20" />
+    <Property Name="NOMBRE" Type="varchar2" MaxLength="50" />
+    <Property Name="APELLIDO" Type="varchar2" MaxLength="50" />
+    <Property Name="DIRECCION" Type="varchar2" MaxLength="255" />
+    <Property Name="CELULAR" Type="number" Precision="38" Scale="0" />
+    <Property Name="ID_LIBRO" Type="number" Precision="38" Scale="0" />
+  </EntityType>
+  <Association Name="LOG_LIBRO_FK">
+    <End Role="TBL_LIBRO" Type="Self.TBL_LIBRO" Multiplicity="0..1" />
+    <End Role="TBL_LOG" Type="Self.TBL_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_LIBRO">
+        <PropertyRef Name="ID_LIBRO" />
+      </Principal>
+      <Dependent Role="TBL_LOG">
+        <PropertyRef Name="ID_LIBRO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LOG_USUARIO_FK">
+    <End Role="TBL_USUARIO" Type="Self.TBL_USUARIO" Multiplicity="0..1" />
+    <End Role="TBL_LOG" Type="Self.TBL_LOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_USUARIO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Principal>
+      <Dependent Role="TBL_LOG">
+        <PropertyRef Name="ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="USUARIO_LIBRO_FK">
+    <End Role="TBL_LIBRO" Type="Self.TBL_LIBRO" Multiplicity="0..1" />
+    <End Role="TBL_USUARIO" Type="Self.TBL_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_LIBRO">
+        <PropertyRef Name="ID_LIBRO" />
+      </Principal>
+      <Dependent Role="TBL_USUARIO">
+        <PropertyRef Name="ID_LIBRO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="FUN_OBTENER_USUARIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SHACKOX" />
+  <Function Name="INSERTAR_LIBRO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SHACKOX">
+    <Parameter Name="L_NOMBRE_LIBRO" Type="varchar2" Mode="In" />
+    <Parameter Name="L_NOMBRE_AUTOR" Type="varchar2" Mode="In" />
+  </Function>
+  <Function Name="INSERTAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SHACKOX">
+    <Parameter Name="U_CEDULA" Type="varchar2" Mode="In" />
+    <Parameter Name="U_NOMBRE" Type="varchar2" Mode="In" />
+    <Parameter Name="U_APELLIDO" Type="varchar2" Mode="In" />
+    <Parameter Name="U_DIRECCION" Type="varchar2" Mode="In" />
+    <Parameter Name="U_CELULAR" Type="number" Mode="In" />
+    <Parameter Name="U_L_LIBRO" Type="number" Mode="In" />
+  </Function>
+  <EntityContainer Name="ModeloStoreContainer">
+    <EntitySet Name="TBL_LIBRO" EntityType="Self.TBL_LIBRO" Schema="SHACKOX" store:Type="Tables" />
+    <EntitySet Name="TBL_LOG" EntityType="Self.TBL_LOG" Schema="SHACKOX" store:Type="Tables" />
+    <EntitySet Name="TBL_USUARIO" EntityType="Self.TBL_USUARIO" Schema="SHACKOX" store:Type="Tables" />
+    <AssociationSet Name="LOG_LIBRO_FK" Association="Self.LOG_LIBRO_FK">
+      <End Role="TBL_LIBRO" EntitySet="TBL_LIBRO" />
+      <End Role="TBL_LOG" EntitySet="TBL_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="LOG_USUARIO_FK" Association="Self.LOG_USUARIO_FK">
+      <End Role="TBL_USUARIO" EntitySet="TBL_USUARIO" />
+      <End Role="TBL_LOG" EntitySet="TBL_LOG" />
+    </AssociationSet>
+    <AssociationSet Name="USUARIO_LIBRO_FK" Association="Self.USUARIO_LIBRO_FK">
+      <End Role="TBL_LIBRO" EntitySet="TBL_LIBRO" />
+      <End Role="TBL_USUARIO" EntitySet="TBL_USUARIO" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

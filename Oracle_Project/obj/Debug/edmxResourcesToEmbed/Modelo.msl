@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModeloStoreContainer" CdmEntityContainer="EntidadesLibreria">
+    <EntitySetMapping Name="TBL_LIBRO">
+      <EntityTypeMapping TypeName="Modelo.TBL_LIBRO">
+        <MappingFragment StoreEntitySet="TBL_LIBRO">
+          <ScalarProperty Name="ID_LIBRO" ColumnName="ID_LIBRO" />
+          <ScalarProperty Name="NOMBRE_LIBRO" ColumnName="NOMBRE_LIBRO" />
+          <ScalarProperty Name="NOMBRE_AUTOR" ColumnName="NOMBRE_AUTOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_LOG">
+      <EntityTypeMapping TypeName="Modelo.TBL_LOG">
+        <MappingFragment StoreEntitySet="TBL_LOG">
+          <ScalarProperty Name="ID_LOG" ColumnName="ID_LOG" />
+          <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
+          <ScalarProperty Name="ID_LIBRO" ColumnName="ID_LIBRO" />
+          <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_USUARIO">
+      <EntityTypeMapping TypeName="Modelo.TBL_USUARIO">
+        <MappingFragment StoreEntitySet="TBL_USUARIO">
+          <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+          <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="APELLIDO" ColumnName="APELLIDO" />
+          <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+          <ScalarProperty Name="CELULAR" ColumnName="CELULAR" />
+          <ScalarProperty Name="ID_LIBRO" ColumnName="ID_LIBRO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="INSERTAR_LIBRO" FunctionName="Modelo.Store.INSERTAR_LIBRO" />
+    <FunctionImportMapping FunctionImportName="INSERTAR_USUARIO" FunctionName="Modelo.Store.INSERTAR_USUARIO" />
+    <FunctionImportMapping FunctionImportName="FUN_OBTENER_USUARIOS" FunctionName="Modelo.Store.FUN_OBTENER_USUARIOS" />
+  </EntityContainerMapping>
+</Mapping>
